@@ -3,9 +3,14 @@ from tensorflow.keras.preprocessing import image
 import streamlit as st
 from PIL import Image, ImageOps
 import numpy as np
+import tensorflow as tf
+from keras.layers import TFSMLayer
+
+# Load the SavedModel for inference
+model = TFSMLayer("model.savedmodel", call_endpoint="serving_default")
 
 # Load the pre-trained model
-model = tf.keras.models.load_model('model.savedmodel')
+#model = tf.keras.models.load_model('model.savedmodel')
 
 # Streamlit app title
 st.write("""
