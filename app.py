@@ -18,7 +18,10 @@ file = st.file_uploader("Please upload an image file", type=["jpg", "png"])
 # Function to preprocess and predict
 def import_and_predict(image_data, model):
     size = (224, 224)  # Resize target dimensions
-    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)  # Updated for Pillow compatibility
+    try:
+        image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)  # Resize with Pillow
+    except AttributeError:  # Fallback for older Pillow versions
+        image = ImageOps.fit(image_data, size, Image.LANCZOS)
     image = np.asarray(image)  # Convert to NumPy array
     normalized_image = image / 255.0  # Normalize pixel values to [0, 1]
     img_reshape = np.expand_dims(normalized_image, axis=0)  # Add batch dimension
