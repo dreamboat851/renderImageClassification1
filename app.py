@@ -5,7 +5,7 @@ from PIL import Image, ImageOps
 import numpy as np
 
 # Load the pre-trained model
-model = tf.keras.models.load_model('keras_model.h5')
+model = tf.keras.models.load_model('model.savedmodel')
 
 # Streamlit app title
 st.write("""
