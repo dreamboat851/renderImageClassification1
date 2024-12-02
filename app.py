@@ -4,13 +4,16 @@ import streamlit as st
 from PIL import Image, ImageOps
 import numpy as np
 import tensorflow as tf
-from keras.layers import TFSMLayer
+#from keras.layers import TFSMLayer
 
 # Load the SavedModel for inference
-model = TFSMLayer("model.savedmodel", call_endpoint="serving_default")
+#model = TFSMLayer("model.savedmodel", call_endpoint="serving_default")
 
 # Load the pre-trained model
 #model = tf.keras.models.load_model('model.savedmodel')
+
+# Load the pre-trained model
+model = tf.keras.models.load_model('keras_model.h5')
 
 # Streamlit app title
 st.write("""
@@ -22,6 +25,8 @@ file = st.file_uploader("Please upload an image file", type=["jpg", "png"])
 
 # Function to preprocess and predict
 def import_and_predict(image_data, model):
+    #image = Image.open(image_data).convert("RGB")  # Convert to RGB
+    #image = image_data.convert("RGB")
     size = (224, 224)  # Resize target dimensions
     try:
         image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)  # Resize with Pillow
